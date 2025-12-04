@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import {useForm} from 'react-hook-form'
 import ErrorMessage from "../components/ErrorMessage";
 import type {RegisterFrom} from '../types'
-import axios, { Axios } from "axios";
+import axios from "axios";
 
 
 export default function RegisterView() {
