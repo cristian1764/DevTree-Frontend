@@ -2,10 +2,12 @@ import {  Link } from "react-router-dom";
 import {useForm} from 'react-hook-form'
 import ErrorMessage from "../components/ErrorMessage";
 import type {RegisterFrom} from '../types'
-import axios, {isAxiosError } from "axios";
-
+import  {isAxiosError } from "axios";
+import {toast } from 'sonner'
+import api from "../config/axios";
 
 export default function RegisterView() {
+  
   
   const initialValues:RegisterFrom= {
     name:'',
@@ -16,20 +18,25 @@ export default function RegisterView() {
   }
 
 
-  const {register,watch,handleSubmit, formState:{errors}}=useForm({defaultValues:initialValues})
+  const {register,watch,reset,handleSubmit, formState:{errors}}=useForm({defaultValues:initialValues})
   
 const password = watch('password')
+console.log(import.meta.env.VITE_API_URL)
 
   const handleRegister = async (formData:RegisterFrom)=>{
     try {
-        const {data} =await axios.post('http://localhost:4000/auth/register',formData)
-        console.log(data)
+        // ...existing code...
+        const {data} = await api.post(`/auth/register`, formData)
+        toast.success(data)
+        reset()
+// ...existing code...   
       }catch (error){
-        if(isAxiosError(error)){
-          console.log(error.response?.data.error)          
+        if(isAxiosError(error)&&error.response){
+          toast.error(error.response.data.error)          
         }
       }
   }
+  
   return (
     <>
          <h1 className="text-4xl text-white font-bold"> Crear cuenta</h1>
