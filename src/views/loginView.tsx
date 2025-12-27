@@ -20,7 +20,7 @@ export default function LoginView() {
             try {
                 // ...existing code...
                 const {data} = await api.post(`/auth/login`, formData)
-                toast.success(data)
+                localStorage.setItem('AUTH_TOKEN',data)
                 
             // ...existing code...   
             }catch (error){
