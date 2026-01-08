@@ -16,7 +16,6 @@ export default function AppLayout() {
     })
     if(isLoading) return 'cargando'
     if(isError) return <Navigate to={'/auth/login'}/>
-    
     if(data) return  <DeevTree data={data}/>
         
     

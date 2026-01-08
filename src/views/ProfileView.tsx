@@ -1,12 +1,22 @@
 import {useForm} from 'react-hook-form' 
+import { useQueryClient } from '@tanstack/react-query'
 import ErrorMessage from '../components/ErrorMessage'
+import type { ProfileForm, User } from '../types'
 
 export default function ProfileView() {
 
-       const {register,handleSubmit, formState:{errors}}=useForm({defaultValues:{handle:'' }})
+    const queryClient = useQueryClient()
+    const data :User =queryClient.getQueryData(['user'])!
+    // const data : User = queryClient.getQueriesData(['user'])!
+
+   
+    const {register,handleSubmit, formState:{errors}}=useForm<ProfileForm>({defaultValues:{
+        handle: data.description,
+        description:data.description
+    }})
     
-    const handleUserProfileForm =()=>{
-        console.log('dedes handleUserPorfile')
+    const handleUserProfileForm =(formData:ProfileForm)=>{
+         console.log(formData)
     }
     
        return (
@@ -38,7 +48,11 @@ export default function ProfileView() {
                 <textarea
                     className="border-none bg-slate-100 rounded-lg p-2"
                     placeholder="Tu Descripción"
+                       {...register('description', {
+                        required :"la descripcion del usuario es obligatorio"
+                    })}
                 />
+                 {errors.description && <ErrorMessage>{errors.description.message}</ErrorMessage>} 
             </div>
 
             <div className="grid grid-cols-1 gap-2">
