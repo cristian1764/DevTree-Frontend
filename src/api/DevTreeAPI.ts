@@ -29,3 +29,16 @@ export async function updateProfile(formData:ProfileForm) {
         }
     }
 }
+
+export async function uploadiamge(file:File) {
+    console.log('desde uploadimage')
+     try {
+        // ...existing code...
+       
+    // ...existing code...   
+    }catch (error){
+        if(isAxiosError(error)&&error.response){
+            throw new Error(error.response.data.error)    
+        }
+    }
+}
