@@ -31,9 +31,12 @@ export async function updateProfile(formData:ProfileForm) {
 }
 
 export async function uploadiamge(file:File) {
-    console.log('desde uploadimage')
+    let formData = new FormData
+    formData.append('file',file)
      try {
         // ...existing code...
+        const {data:{image}}: {data:{image:string}} = await api.post ('/user/image',formData)
+        return image
        
     // ...existing code...   
     }catch (error){

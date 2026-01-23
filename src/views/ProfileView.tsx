@@ -35,13 +35,22 @@ export default function ProfileView() {
             console.log(error)
         },
         onSuccess: (data)=>{
-           console.log(data)
+            // console.log(data)
+            //queryClient.invalidateQueries({queryKey: ['user']})       optimistic updates, esto permite actalizar mas rapido la imagen
+            
+            queryClient.setQueryData(['user'],(prevData:User) => {    
+                return{
+                    ...prevData,
+                    image: data
+                }
+            })
+        
         }
     })
     
     const handleChange= (e: React.ChangeEvent<HTMLInputElement>)=>{
         if(e.target.files){
-            console.log()
+           
             uploadImageMutation.mutate(e.target.files[0])
     }
         }

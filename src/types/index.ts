@@ -5,6 +5,7 @@ export type  User = {
   email:string
   password:string
   description:string
+  image:string
 }
 
 export type RegisterFrom = Pick < User, 'handle' | 'email' | 'name'> &{
@@ -16,3 +17,12 @@ export type LoginForm =Pick<User,'email'>& {
   password :string
 }
 export type ProfileForm = Pick<User, 'handle' | 'description'>
+
+export type SocialNetwork ={
+  id:number
+  name:string
+  url:string
+  enabled:boolean
+}
+
+export type DevTreeLink = Pick<SocialNetwork, 'name' | 'url' | 'enabled'>
