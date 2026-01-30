@@ -6,6 +6,7 @@ export type  User = {
   password:string
   description:string
   image:string
+  links:string
 }
 
 export type RegisterFrom = Pick < User, 'handle' | 'email' | 'name'> &{
